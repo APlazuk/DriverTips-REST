@@ -9,7 +9,5 @@ public class TrainingDTO {
 
     private String title;
 
-    private TipDTO tipDTO;
-
     private List<QuestionDTO> questionDTOS;
 }

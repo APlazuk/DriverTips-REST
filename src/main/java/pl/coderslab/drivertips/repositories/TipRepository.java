@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface TipRepository extends JpaRepository<Tip, Long> {
 
-    @Query(value = "SELECT*FROM tip ORDER BY date DESC LIMIT 3;", nativeQuery = true)
-    List<Tip> queryGetNewestTips();
+    @Query(value = "SELECT*FROM tip ORDER BY date DESC LIMIT ?;", nativeQuery = true)
+    List<Tip> queryGetNewestTips(Integer limit);
 }

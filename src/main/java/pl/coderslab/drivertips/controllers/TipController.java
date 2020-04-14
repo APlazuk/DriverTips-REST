@@ -22,7 +22,7 @@ public class TipController {
     }
 
     @GetMapping("/latest") //requestparam z iloscią ostatnich tipów które chce pobrać
-    public List<TipDTO> get(@RequestParam String limit){
+    public List<TipDTO> get(@RequestParam Integer limit){
         List<Tip> tips = tipService.newestTips();
 
         return tips.stream().map(tipConverter::toDTO).collect(Collectors.toList());

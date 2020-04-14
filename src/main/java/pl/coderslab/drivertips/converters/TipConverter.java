@@ -12,12 +12,6 @@ import java.util.stream.Collectors;
 @Component
 public class TipConverter {
 
-    private TrainingConverter trainingConverter;
-
-    @Autowired
-    public void setTrainingConverter(TrainingConverter trainingConverter){
-        this.trainingConverter = trainingConverter;
-    }
 
     private final TagConverter tagConverter;
     private final MultimediaConverter multimediaConverter;
@@ -35,11 +29,6 @@ public class TipConverter {
         tipDTO.setDescription(tip.getDescription());
         tipDTO.setDate(tip.getDate());
 
-        Training training = tip.getTraining();
-        TrainingDTO trainingDTO = trainingConverter.toDTO(training);
-
-
-        tipDTO.setTrainingDTO(trainingDTO);
         tipDTO.setMultimediaDTOS(tip.getMultimedia().stream().map(multimedia -> multimediaConverter.toDTO(multimedia)).collect(Collectors.toList()));
         tipDTO.setTagDTOS(tip.getTags().stream().map(tag -> tagConverter.toDTO(tag)).collect(Collectors.toList()));
 
@@ -54,10 +43,6 @@ public class TipConverter {
         tip.setDescription(tipDTO.getDescription());
         tip.setDate(tipDTO.getDate());
 
-        TrainingDTO trainingDTO = tipDTO.getTrainingDTO();
-        Training training = trainingConverter.fromDTO(trainingDTO);
-
-        tip.setTraining(training);
         tip.setMultimedia(tipDTO.getMultimediaDTOS().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
         tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toList()));
         return tip;
@@ -70,10 +55,6 @@ public class TipConverter {
         tip.setTitle(tipDTO.getTitle());
         tip.setId(tipDTO.getId());
 
-        TrainingDTO trainingDTO = tipDTO.getTrainingDTO();
-        Training training = trainingConverter.fromDTO(trainingDTO);
-
-        tip.setTraining(training);
         tip.setMultimedia(tipDTO.getMultimediaDTOS().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
         tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toList()));
     }
