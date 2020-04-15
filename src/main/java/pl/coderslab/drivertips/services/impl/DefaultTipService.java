@@ -1,6 +1,7 @@
 package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.drivertips.domain.Tip;
 import pl.coderslab.drivertips.exceptions.TipNotFoundException;
 import pl.coderslab.drivertips.repositories.TipRepository;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DefaultTipService implements TipService {
 
     private final TipRepository tipRepository;
@@ -19,8 +21,8 @@ public class DefaultTipService implements TipService {
     }
 
     @Override
-    public List<Tip> newestTips() {
-        return tipRepository.queryGetNewestTips();
+    public List<Tip> newestTips(Integer limit) {
+        return tipRepository.queryGetNewestTips(limit);
     }
 
     @Override
@@ -38,4 +40,12 @@ public class DefaultTipService implements TipService {
     public Tip save(Tip tip) {
         return null;
     }
+
+    @Override
+    public Tip createNewTip(Tip tip) {
+
+        return tipRepository.save(tip);
+    }
+
+
 }
