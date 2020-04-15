@@ -1,12 +1,6 @@
 package pl.coderslab.drivertips.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 import pl.coderslab.drivertips.converters.TipConverter;
 import pl.coderslab.drivertips.dtos.TipDTO;
 import pl.coderslab.drivertips.domain.Tip;
