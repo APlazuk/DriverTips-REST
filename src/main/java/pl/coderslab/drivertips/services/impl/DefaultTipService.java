@@ -43,8 +43,7 @@ public class DefaultTipService implements TipService {
         if (tipFromDatabase.isEmpty()){
             throw new TipNotFoundException(String.format("Porada o danym id: '%s' nie została znaleziona", id));
         }
-        Tip updatedTip = tipFromDatabase.get();
-        return tipRepository.save(updatedTip);
+        return tipFromDatabase.get();
     }
 
     @Override
