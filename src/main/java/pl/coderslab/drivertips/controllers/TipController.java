@@ -48,10 +48,11 @@ public class TipController {
 
     @PutMapping("/{id}")
     public TipDTO edit(@PathVariable Long id, @Valid @RequestBody TipDTO tipDTO) {
+        Tip tipToUpdate = tipService.findById(id);
 
-        Tip updatedTip = tipService.updateTip(id, tipConverter.fromDTO(tipDTO));
+        tipConverter.applyChanges(tipToUpdate,tipDTO);
 
-        tipConverter.applyChanges(updatedTip,tipDTO);
+        Tip updatedTip = tipService.updateTip(id, tipToUpdate);
 
         return tipConverter.toDTO(updatedTip);
     }
