@@ -23,21 +23,21 @@ public class TipController {
     }
 
     @GetMapping("/latest")
-    public List<TipDTO> getTheNewest(@RequestParam("limit") Integer limit){
+    public List<TipDTO> getTheNewest(@RequestParam("limit") Integer limit) {
         List<Tip> tips = tipService.newestTips(limit);
 
         return tips.stream().map(tipConverter::toDTO).collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{id}")
-    public TipDTO getById(@PathVariable Long id){
+    public TipDTO getById(@PathVariable Long id) {
         Tip tip = tipService.findById(id);
 
         return tipConverter.toDTO(tip);
     }
 
     @PostMapping("")
-    public TipDTO createNewTip(@Valid @RequestBody TipDTO tipDTO){
+    public TipDTO createNewTip(@Valid @RequestBody TipDTO tipDTO) {
 
         Tip tip = tipConverter.fromDTO(tipDTO);
 
@@ -47,12 +47,12 @@ public class TipController {
     }
 
     @PutMapping("/{id}")
-    public TipDTO edit(@PathVariable Long id, @RequestBody TipDTO tipDTO){
-        Tip tip = tipService.findById(id);
+    public TipDTO edit(@PathVariable Long id, @Valid @RequestBody TipDTO tipDTO) {
 
-        tipConverter.applyChanges(tip,tipDTO);
-        Tip save = tipService.save(tip);
+        Tip updatedTip = tipService.updateTip(id, tipConverter.fromDTO(tipDTO));
 
-        return tipConverter.toDTO(save);
+        tipConverter.applyChanges(updatedTip,tipDTO);
+
+        return tipConverter.toDTO(updatedTip);
     }
 }

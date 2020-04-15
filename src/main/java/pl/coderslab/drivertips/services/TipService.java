@@ -9,7 +9,7 @@ public interface TipService {
 
     Tip findById(Long id);
 
-    Tip save(Tip tip);
+    Tip updateTip(Long id, Tip tip);
 
     Tip createNewTip(Tip tip);
 }

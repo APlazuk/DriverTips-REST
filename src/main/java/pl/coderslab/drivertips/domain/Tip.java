@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -30,5 +31,10 @@ public class Tip  extends BaseEntity{
 
     @ManyToMany
     private List<Tag> tags;
+
+    @PrePersist
+    public void PrePersist(){
+        date = LocalDate.now();
+    }
 
 }

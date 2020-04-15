@@ -13,10 +13,9 @@ public class TipDTO {
 
     @NotBlank
     private String title;
-
+    @NotBlank
     private String description;
 
-    @NotBlank
     private LocalDate date;
 
     private List<TagDTO> tagDTOS;

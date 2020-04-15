@@ -29,7 +29,7 @@ public class DefaultTipService implements TipService {
     public Tip findById(Long id) {
         Optional<Tip> requestedTip = tipRepository.findById(id);
 
-        if (requestedTip.isEmpty()){
+        if (requestedTip.isEmpty()) {
             throw new TipNotFoundException(String.format("Porada o danym id: '%s' nie została znaleziona", id));
         }
 
@@ -37,13 +37,18 @@ public class DefaultTipService implements TipService {
     }
 
     @Override
-    public Tip save(Tip tip) {
-        return null;
+    public Tip updateTip(Long id, Tip tip) {
+        Optional<Tip> tipFromDatabase = tipRepository.findById(id);
+
+        if (tipFromDatabase.isEmpty()){
+            throw new TipNotFoundException(String.format("Porada o danym id: '%s' nie została znaleziona", id));
+        }
+
+        return tipFromDatabase.get();
     }
 
     @Override
     public Tip createNewTip(Tip tip) {
-
         return tipRepository.save(tip);
     }
 

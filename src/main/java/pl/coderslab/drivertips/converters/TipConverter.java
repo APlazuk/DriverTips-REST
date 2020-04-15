@@ -48,7 +48,6 @@ public class TipConverter {
         tip.setDescription(tipDTO.getDescription());
         tip.setDate(tipDTO.getDate());
         tip.setTitle(tipDTO.getTitle());
-        tip.setId(tipDTO.getId());
 
         tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toList()));
     }
