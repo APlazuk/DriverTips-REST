@@ -1,5 +1,7 @@
 package pl.coderslab.drivertips.controllers;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
@@ -71,9 +73,10 @@ public class TipController {
         tipConverter.toDTO(saved);
 
         UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{id}").buildAndExpand(saved.getId());
-        //przy mulimediach do sklejenia stringa
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
 
-        return ResponseEntity.created(uriComponents.toUri()).build();
+        return new ResponseEntity<TipDTO>(headers, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -93,5 +96,13 @@ public class TipController {
 
         tipService.delete(tipToDelete);
     }
+
+    /*
+    TODO
+    1.Najpopularniejsze Porady
+    2.Wyświetlanie multimediów
+    3.Kaskada dla relacji one to one z treningiem
+    */
+
 
 }

@@ -10,13 +10,10 @@ public class MultimediaConverter {
     public MultimediaDTO toDTO(Multimedia multimedia){
         MultimediaDTO multimediaDTO = new MultimediaDTO();
 
+        multimediaDTO.setId(multimedia.getId());
         multimediaDTO.setName(multimedia.getName());
-        multimediaDTO.setUrl("/mutlimedia/" + multimedia.getId() );
+        multimediaDTO.setContent(multimedia.getContent());
         multimediaDTO.setContentType(multimedia.getContentType());
-        multimediaDTO.setCreatedOn(multimedia.getCreatedOn());
-        multimediaDTO.setCreatedBy(multimedia.getCreatedBy());
-        multimediaDTO.setUpdatedOn(multimedia.getUpdatedOn());
-        multimediaDTO.setUpdatedBy(multimedia.getUpdatedBy());
 
         return multimediaDTO;
     }
@@ -24,12 +21,11 @@ public class MultimediaConverter {
     public Multimedia fromDTO(MultimediaDTO multimediaDTO){
         Multimedia multimedia = new Multimedia();
 
+
+        multimedia.setId(multimediaDTO.getId());
         multimedia.setName(multimediaDTO.getName());
         multimedia.setContentType(multimediaDTO.getContentType());
-        multimedia.setCreatedOn(multimediaDTO.getCreatedOn());
-        multimedia.setCreatedBy(multimediaDTO.getCreatedBy());
-        multimedia.setUpdatedOn(multimediaDTO.getUpdatedOn());
-        multimedia.setUpdatedBy(multimediaDTO.getUpdatedBy());
+        multimedia.setContent(multimediaDTO.getContent());
 
         return multimedia;
     }
