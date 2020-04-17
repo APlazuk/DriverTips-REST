@@ -16,5 +16,5 @@ public interface TipService {
 
     Tip updateTip(Long id, Tip tip);
 
-
+    void delete(Tip tip);
 }

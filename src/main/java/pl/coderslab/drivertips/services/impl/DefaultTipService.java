@@ -62,4 +62,8 @@ public class DefaultTipService implements TipService {
         return tipsByName;
     }
 
+    @Override
+    public void delete(Tip tip) {
+        tipRepository.deleteById(tip.getId());
+    }
 }

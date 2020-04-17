@@ -15,5 +15,5 @@ public interface TipRepository {
 
     Tip save(Tip tip);
 
-
+    void deleteById(Long id);
 }

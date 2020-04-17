@@ -87,11 +87,11 @@ public class TipController {
         return tipConverter.toDTO(updatedTip);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        Tip tipToDelete = tipService.findById(id);
 
+        tipService.delete(tipToDelete);
+    }
 
-    /*
-     TO DO
-        3.delete
-
-    */
 }
