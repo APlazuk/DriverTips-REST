@@ -3,6 +3,7 @@ package pl.coderslab.drivertips.services.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.drivertips.domain.Tip;
+import pl.coderslab.drivertips.domain.Training;
 import pl.coderslab.drivertips.exceptions.TipNotFoundException;
 import pl.coderslab.drivertips.repositories.TipRepository;
 import pl.coderslab.drivertips.services.TipService;
@@ -21,11 +22,6 @@ public class DefaultTipService implements TipService {
     }
 
     @Override
-    public List<Tip> newestTips(Integer limit) {
-        return tipRepository.queryGetNewestTips(limit);
-    }
-
-    @Override
     public Tip findById(Long id) {
         Optional<Tip> requestedTip = tipRepository.findById(id);
 
@@ -37,19 +33,33 @@ public class DefaultTipService implements TipService {
     }
 
     @Override
+    public Tip createNewTip(Tip tip) {
+        return tipRepository.save(tip);
+    }
+
+    @Override
+    public List<Tip> newestTips(Integer limit) {
+        return tipRepository.queryGetNewestTips(limit);
+    }
+
+    @Override
     public Tip updateTip(Long id, Tip tip) {
         Optional<Tip> tipFromDatabase = tipRepository.findById(id);
 
-        if (tipFromDatabase.isEmpty()){
+        if (tipFromDatabase.isEmpty()) {
             throw new TipNotFoundException(String.format("Porada o danym id: '%s' nie została znaleziona", id));
         }
         return tipFromDatabase.get();
     }
 
     @Override
-    public Tip createNewTip(Tip tip) {
-        return tipRepository.save(tip);
-    }
+    public List<Tip> searchTip(String name) {
+        List<Tip> tipsByName = tipRepository.queryGetTipsByName(name);
 
+        if (tipsByName.isEmpty()) {
+            throw new TipNotFoundException(String.format("Porada o danym tytule: '%s' nie została znaleziona", name));
+        }
+        return tipsByName;
+    }
 
 }

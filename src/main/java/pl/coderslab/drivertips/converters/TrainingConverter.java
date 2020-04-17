@@ -19,6 +19,7 @@ public class TrainingConverter {
     public TrainingDTO toDTO(Training training){
         TrainingDTO trainingDTO = new TrainingDTO();
 
+        trainingDTO.setId(training.getId());
         trainingDTO.setTitle(training.getTitle());
         trainingDTO.setQuestionDTOS(training.getQuestions().stream().map(question -> questionsConverter.toDTO(question)).collect(Collectors.toList()));
 
@@ -29,6 +30,7 @@ public class TrainingConverter {
 
         Training training = new Training();
 
+        training.setId(trainingDTO.getId());
         training.setTitle(trainingDTO.getTitle());
         training.setQuestions(trainingDTO.getQuestionDTOS().stream().map(questionDTO -> questionsConverter.fromDTO(questionDTO)).collect(Collectors.toList()));
 

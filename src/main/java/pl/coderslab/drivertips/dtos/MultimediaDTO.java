@@ -5,13 +5,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Data
-@ToString(exclude = "content")
 public class MultimediaDTO {
 
 
     private String name;
     private String contentType;
-    private byte[] content;
+    private String url;
     private LocalDateTime createdOn;
     private String createdBy;
     private LocalDateTime updatedOn;

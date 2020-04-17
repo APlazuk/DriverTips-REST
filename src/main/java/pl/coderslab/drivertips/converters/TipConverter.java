@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 public class TipConverter {
 
     private TagConverter tagConverter;
+    private final MultimediaConverter multimediaConverter;
+
+    public TipConverter(final MultimediaConverter multimediaConverter) {
+        this.multimediaConverter = multimediaConverter;
+    }
 
     @Autowired
     public void setTagConverter(TagConverter tagConverter) {
@@ -26,6 +31,7 @@ public class TipConverter {
         tipDTO.setDescription(tip.getDescription());
         tipDTO.setDate(tip.getDate());
 
+        tipDTO.setMultimediaDTO(tip.getMultimedia().stream().map(multimedia -> multimediaConverter.toDTO(multimedia)).collect(Collectors.toList()));
         tipDTO.setTagDTOS(tip.getTags().stream().map(tag -> tagConverter.toDTO(tag)).collect(Collectors.toList()));
 
         return tipDTO;
@@ -39,6 +45,7 @@ public class TipConverter {
         tip.setDescription(tipDTO.getDescription());
         tip.setDate(tipDTO.getDate());
 
+        tip.setMultimedia(tipDTO.getMultimediaDTO().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
         tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toList()));
         return tip;
     }
@@ -49,6 +56,7 @@ public class TipConverter {
         tip.setDate(tipDTO.getDate());
         tip.setTitle(tipDTO.getTitle());
 
+        tip.setMultimedia(tipDTO.getMultimediaDTO().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
         tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toList()));
     }
 }

@@ -11,7 +11,7 @@ public class MultimediaConverter {
         MultimediaDTO multimediaDTO = new MultimediaDTO();
 
         multimediaDTO.setName(multimedia.getName());
-        multimediaDTO.setContent(multimedia.getContent());
+        multimediaDTO.setUrl("/mutlimedia/" + multimedia.getId() );
         multimediaDTO.setContentType(multimedia.getContentType());
         multimediaDTO.setCreatedOn(multimedia.getCreatedOn());
         multimediaDTO.setCreatedBy(multimedia.getCreatedBy());
@@ -25,7 +25,6 @@ public class MultimediaConverter {
         Multimedia multimedia = new Multimedia();
 
         multimedia.setName(multimediaDTO.getName());
-        multimedia.setContent(multimediaDTO.getContent());
         multimedia.setContentType(multimediaDTO.getContentType());
         multimedia.setCreatedOn(multimediaDTO.getCreatedOn());
         multimedia.setCreatedBy(multimediaDTO.getCreatedBy());

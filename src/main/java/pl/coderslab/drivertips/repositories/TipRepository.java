@@ -1,15 +1,19 @@
 package pl.coderslab.drivertips.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 import pl.coderslab.drivertips.domain.Tip;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface TipRepository extends JpaRepository<Tip, Long> {
+public interface TipRepository {
 
-    @Query(value = "SELECT*FROM tip ORDER BY date DESC LIMIT ?;", nativeQuery = true)
     List<Tip> queryGetNewestTips(Integer limit);
+
+    List<Tip> queryGetTipsByName(String name);
+
+    Optional<Tip> findById(Long id);
+
+    Tip save(Tip tip);
+
+
 }
