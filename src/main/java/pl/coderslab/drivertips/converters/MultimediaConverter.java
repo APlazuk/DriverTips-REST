@@ -1,7 +1,7 @@
 package pl.coderslab.drivertips.converters;
 
 import org.springframework.stereotype.Component;
-import pl.coderslab.drivertips.domain.Multimedia;
+import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.dtos.MultimediaDTO;
 
 @Component

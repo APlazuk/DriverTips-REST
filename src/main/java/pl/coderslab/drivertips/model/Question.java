@@ -1,4 +1,4 @@
-package pl.coderslab.drivertips.domain;
+package pl.coderslab.drivertips.model;
 
 import lombok.Data;
 
@@ -7,15 +7,20 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "answers")
-public class Answer extends BaseEntity {
+@Table(name = "questions")
+public class Question extends BaseEntity {
 
     @Column(nullable = false)
     private String text;
     @Column(nullable = false)
-    private Boolean correct;
+    private Integer points;
+
+    @OneToMany
+    @JoinColumn(name = "answer_id")
+    private List<Answer> answers;
 
     @OneToMany
     @JoinColumn(name = "mutlimedia_id")
     private List<Multimedia> multimedia;
+
 }

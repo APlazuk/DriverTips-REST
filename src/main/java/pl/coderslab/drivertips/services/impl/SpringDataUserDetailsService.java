@@ -6,8 +6,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import pl.coderslab.drivertips.domain.Role;
-import pl.coderslab.drivertips.domain.User;
+import pl.coderslab.drivertips.model.Role;
+import pl.coderslab.drivertips.model.User;
 import pl.coderslab.drivertips.services.UserService;
 
 

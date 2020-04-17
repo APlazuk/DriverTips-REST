@@ -2,8 +2,8 @@ package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.coderslab.drivertips.domain.Role;
-import pl.coderslab.drivertips.domain.User;
+import pl.coderslab.drivertips.model.Role;
+import pl.coderslab.drivertips.model.User;
 import pl.coderslab.drivertips.repositories.RoleRepository;
 import pl.coderslab.drivertips.repositories.UserRepository;
 import pl.coderslab.drivertips.services.UserService;

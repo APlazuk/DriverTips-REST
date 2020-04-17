@@ -1,7 +1,7 @@
 package pl.coderslab.drivertips.converters;
 
 import org.springframework.stereotype.Component;
-import pl.coderslab.drivertips.domain.Answer;
+import pl.coderslab.drivertips.model.Answer;
 import pl.coderslab.drivertips.dtos.AnswerDTO;
 
 import java.util.stream.Collectors;

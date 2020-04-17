@@ -1,8 +1,7 @@
 package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
-import pl.coderslab.drivertips.domain.Training;
-import pl.coderslab.drivertips.exceptions.TipNotFoundException;
+import pl.coderslab.drivertips.model.Training;
 import pl.coderslab.drivertips.exceptions.TrainingNotFoundException;
 import pl.coderslab.drivertips.repositories.TrainingRepository;
 import pl.coderslab.drivertips.services.TrainingService;

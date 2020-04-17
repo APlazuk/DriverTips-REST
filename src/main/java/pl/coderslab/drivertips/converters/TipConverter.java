@@ -3,7 +3,7 @@ package pl.coderslab.drivertips.converters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.coderslab.drivertips.dtos.TipDTO;
-import pl.coderslab.drivertips.domain.Tip;
+import pl.coderslab.drivertips.model.Tip;
 
 import java.util.stream.Collectors;
 

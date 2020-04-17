@@ -1,6 +1,6 @@
 package pl.coderslab.drivertips.services;
 
-import pl.coderslab.drivertips.domain.Tip;
+import pl.coderslab.drivertips.model.Tip;
 
 import java.util.List;
 

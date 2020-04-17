@@ -1,6 +1,6 @@
 package pl.coderslab.drivertips.repositories;
 
-import pl.coderslab.drivertips.domain.Training;
+import pl.coderslab.drivertips.model.Training;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package pl.coderslab.drivertips.services;
 
-import pl.coderslab.drivertips.domain.Training;
+import pl.coderslab.drivertips.model.Training;
 
 public interface TrainingService {
 

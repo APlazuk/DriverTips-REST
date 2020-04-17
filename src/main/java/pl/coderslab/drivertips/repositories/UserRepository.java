@@ -1,6 +1,6 @@
 package pl.coderslab.drivertips.repositories;
 
-import pl.coderslab.drivertips.domain.User;
+import pl.coderslab.drivertips.model.User;
 
 public interface UserRepository {
 

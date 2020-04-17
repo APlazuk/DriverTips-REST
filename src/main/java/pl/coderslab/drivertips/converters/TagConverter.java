@@ -1,7 +1,7 @@
 package pl.coderslab.drivertips.converters;
 
 import org.springframework.stereotype.Component;
-import pl.coderslab.drivertips.domain.Tag;
+import pl.coderslab.drivertips.model.Tag;
 import pl.coderslab.drivertips.dtos.TagDTO;
 
 @Component

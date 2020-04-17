@@ -1,4 +1,4 @@
-package pl.coderslab.drivertips.domain;
+package pl.coderslab.drivertips.model;
 
 import lombok.Data;
 import lombok.ToString;

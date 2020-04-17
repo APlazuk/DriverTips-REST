@@ -1,4 +1,4 @@
-package pl.coderslab.drivertips.domain;
+package pl.coderslab.drivertips.model;
 
 
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity

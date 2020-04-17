@@ -4,7 +4,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.drivertips.domain.User;
+import pl.coderslab.drivertips.model.User;
 import pl.coderslab.drivertips.repositories.UserRepository;
 import pl.coderslab.drivertips.services.UserService;
 

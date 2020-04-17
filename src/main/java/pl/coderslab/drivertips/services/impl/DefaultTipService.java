@@ -2,8 +2,7 @@ package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.drivertips.domain.Tip;
-import pl.coderslab.drivertips.domain.Training;
+import pl.coderslab.drivertips.model.Tip;
 import pl.coderslab.drivertips.exceptions.TipNotFoundException;
 import pl.coderslab.drivertips.repositories.TipRepository;
 import pl.coderslab.drivertips.services.TipService;
