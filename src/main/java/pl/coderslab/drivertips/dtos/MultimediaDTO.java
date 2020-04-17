@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 import java.time.LocalDateTime;
 
-@Data
+@Data @ToString(exclude = "content")
 public class MultimediaDTO {
 
     private Long id;

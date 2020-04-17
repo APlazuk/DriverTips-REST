@@ -6,4 +6,6 @@ public interface MultimediaService {
     Multimedia getMediaById(Long id);
 
     Multimedia addMedia(Multimedia uploadedMultimedia);
+
+//    Multimedia getMediaByTipId(Long tipId);
 }

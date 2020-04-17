@@ -34,4 +34,5 @@ public class DefaultMultimediaService implements MultimediaService {
     public Multimedia addMedia(Multimedia uploadedMultimedia) {
         return multimediaRepository.save(uploadedMultimedia);
     }
+
 }

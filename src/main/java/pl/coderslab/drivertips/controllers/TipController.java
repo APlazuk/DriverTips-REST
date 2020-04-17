@@ -4,18 +4,24 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import pl.coderslab.drivertips.converters.MultimediaConverter;
 import pl.coderslab.drivertips.converters.TipConverter;
 import pl.coderslab.drivertips.converters.TrainingConverter;
+import pl.coderslab.drivertips.dtos.MultimediaDTO;
+import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.model.Training;
 import pl.coderslab.drivertips.dtos.TipDTO;
 import pl.coderslab.drivertips.model.Tip;
 import pl.coderslab.drivertips.dtos.TrainingDTO;
+import pl.coderslab.drivertips.services.MultimediaService;
 import pl.coderslab.drivertips.services.TipService;
 import pl.coderslab.drivertips.services.TrainingService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,12 +29,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/app/tip")
 public class TipController {
 
+    private final MultimediaConverter multimediaConverter;
+    private final MultimediaService multimediaService;
     private final TipService tipService;
     private final TipConverter tipConverter;
     private final TrainingConverter trainingConverter;
     private final TrainingService trainingService;
 
-    public TipController(TipService tipService, TipConverter tipConverter, TrainingConverter trainingConverter, TrainingService trainingService) {
+    public TipController(MultimediaConverter multimediaConverter, MultimediaService multimediaService, TipService tipService, TipConverter tipConverter, TrainingConverter trainingConverter, TrainingService trainingService) {
+        this.multimediaConverter = multimediaConverter;
+        this.multimediaService = multimediaService;
         this.tipService = tipService;
         this.tipConverter = tipConverter;
         this.trainingConverter = trainingConverter;
@@ -56,19 +66,22 @@ public class TipController {
         return tips.stream().map(tip -> tipConverter.toDTO(tip)).collect(Collectors.toList());
     }
 
-    @GetMapping("/training/{tipId}")
+    @GetMapping("/{tipId}/training")
     public TrainingDTO getTraining(@PathVariable Long tipId){
         Training training = trainingService.getTrainingByTipId(tipId);
 
         return trainingConverter.toDTO(training);
     }
 
+
     @PostMapping("")
-    public ResponseEntity<TipDTO> createNewTip(@RequestBody @Valid TipDTO tipDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<TipDTO> createNewTip( @RequestParam("media") Long id, @RequestBody @Valid TipDTO tipDTO, UriComponentsBuilder uriComponentsBuilder) {
+
+        Multimedia media = multimediaService.getMediaById(id);
 
         Tip tip = tipConverter.fromDTO(tipDTO);
 
-        Tip saved = tipService.createNewTip(tip);
+        Tip saved = tipService.createNewTip(tip, media);
 
         tipConverter.toDTO(saved);
 

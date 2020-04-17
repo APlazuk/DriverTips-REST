@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.services;
 
+import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.model.Tip;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface TipService {
 
     Tip findById(Long id);
 
-    Tip createNewTip(Tip tip);
+    Tip createNewTip(Tip tip, Multimedia media);
 
     Tip updateTip(Long id, Tip tip);
 

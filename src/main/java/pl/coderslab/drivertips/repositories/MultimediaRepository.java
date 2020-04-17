@@ -8,4 +8,5 @@ public interface MultimediaRepository {
     Optional<Multimedia> findMultimediaById(Long id);
 
     Multimedia save(Multimedia multimedia);
+
 }

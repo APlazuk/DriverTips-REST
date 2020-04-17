@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import pl.coderslab.drivertips.services.MultimediaService;
 
 import java.io.IOException;
 
+@Slf4j
 @RestController
 @RequestMapping("/app/multimedia")
 class MultimediaController {
@@ -63,6 +65,7 @@ class MultimediaController {
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
 
         }catch (IOException ioe){
+            log.error(ioe.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
