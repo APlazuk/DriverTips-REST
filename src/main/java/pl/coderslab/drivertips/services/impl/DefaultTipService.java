@@ -2,14 +2,17 @@ package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.drivertips.exceptions.MediaNotFoundException;
 import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.model.Tip;
 import pl.coderslab.drivertips.exceptions.TipNotFoundException;
+import pl.coderslab.drivertips.repositories.MultimediaRepository;
 import pl.coderslab.drivertips.repositories.TipRepository;
 import pl.coderslab.drivertips.services.TipService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 
 @Service
@@ -17,9 +20,11 @@ import java.util.Optional;
 public class DefaultTipService implements TipService {
 
     private final TipRepository tipRepository;
+    private final MultimediaRepository multimediaRepository;
 
-    public DefaultTipService(TipRepository tipRepository) {
+    public DefaultTipService(TipRepository tipRepository, MultimediaRepository multimediaRepository) {
         this.tipRepository = tipRepository;
+        this.multimediaRepository = multimediaRepository;
     }
 
     @Override
@@ -33,13 +38,26 @@ public class DefaultTipService implements TipService {
         return requestedTip.get();
     }
 
+    //do testowania
     @Override
-    public Tip createNewTip(Tip tip, Multimedia media) {
+    public Tip createNewTip(Tip tip) {
+        List<Multimedia> multimedia = tip.getMultimedia();
+        ListIterator<Multimedia> multimediaListIterator = multimedia.listIterator();
 
-        List<Multimedia> multimedia = new ArrayList<>();
-        multimedia.add(media);
+        Optional<Multimedia> mediaFromDB = Optional.empty();
+        if (multimediaListIterator.hasNext()) {
+            Multimedia next = multimediaListIterator.next();
+            mediaFromDB = multimediaRepository.findMultimediaById(next.getId());
+        }
 
-        tip.setMultimedia(multimedia);
+        if (mediaFromDB.isEmpty()) {
+            throw new MediaNotFoundException(String.format("Medium o danym id: '%s' nie zostało znalezione", mediaFromDB.get().getId()));
+        }
+
+        List<Multimedia> media = new ArrayList<>();
+        media.add(mediaFromDB.get());
+
+        tip.setMultimedia(media);
 
         return tipRepository.save(tip);
     }

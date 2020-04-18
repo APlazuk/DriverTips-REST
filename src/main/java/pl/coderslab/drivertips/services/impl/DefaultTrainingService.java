@@ -48,9 +48,6 @@ public class DefaultTrainingService implements TrainingService {
     //trzeba rzucić wyjątkiem jeśli chcemy dodać trening z ram użytym tipem. Postman wyrzuca 500 -More than one row with the given identifier was found: 1
     @Override
     public Training createNewTraining(Training training, Tip tip) {
-//        List<Question>questions = questionRepository.getQuestionsByTrainingId(training.getId());
-//        training.setQuestions(questions);
-
         List<Question> questions = training.getQuestions();
         questions.forEach(questionRepository::save);
         questions.forEach(question -> question.setTraining(training));

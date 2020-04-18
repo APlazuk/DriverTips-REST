@@ -15,14 +15,13 @@ import pl.coderslab.drivertips.services.TipService;
 import pl.coderslab.drivertips.services.TrainingService;
 
 @RestController
-@RequestMapping("/app/training")
+@RequestMapping("/app/tip/{tipId}/training")
 class TrainingController {
 
     /*
     TODO
     1. sprawdzenie poprawności endpointów
     2.CRUD treningu
-    3.Lista pytań i odpowiedzi
     4.sumowanie punktów na dany trening
     */
 
@@ -36,14 +35,14 @@ class TrainingController {
         this.tipService = tipService;
     }
 
-    @GetMapping("/{id}")
-    public TrainingDTO get(@PathVariable Long id){
-        Training training = trainingService.getTrainingById(id);
+    @GetMapping("")
+    public TrainingDTO getTraining(@PathVariable Long tipId){
+        Training training = trainingService.getTrainingByTipId(tipId);
 
         return trainingConverter.toDTO(training);
     }
 
-    @PostMapping("/{tipId}")
+    @PostMapping("")
     public ResponseEntity<TrainingDTO> createNew(@PathVariable Long tipId, @RequestBody TrainingDTO trainingDTO, UriComponentsBuilder uriComponentsBuilder){
         Tip tip = tipService.findById(tipId);
 
@@ -53,7 +52,7 @@ class TrainingController {
 
         trainingConverter.toDTO(saved);
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/app/training/{id}").buildAndExpand(saved.getId());
+        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/training/{id}").buildAndExpand(saved.getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
