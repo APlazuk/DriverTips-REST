@@ -18,7 +18,7 @@ public class TipDTO {
 
     private LocalDate date;
 
-    private MultimediaDTO multimediaDTO;
+    private List<MultimediaDTO> multimediaDTO;
     private List<TagDTO> tagDTOS;
 
 }
