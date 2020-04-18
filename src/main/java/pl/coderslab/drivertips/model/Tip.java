@@ -21,7 +21,7 @@ public class Tip  extends BaseEntity{
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToOne(mappedBy = "tip")
+    @OneToOne(mappedBy = "tip", cascade = CascadeType.ALL)
     private Training training;
 
     @OneToMany

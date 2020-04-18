@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SqlResolveMappings">
-    <file url="file://$PROJECT_DIR$/src/main/java/pl/coderslab/drivertips/repositories/impl/DefaultTipRepository.java" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;b5edd8d8-3404-4c86-a8c9-12db6cd5574e&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;driver_tips&quot;      }     }    }   }  } }}" />
-  </component>
-</project>

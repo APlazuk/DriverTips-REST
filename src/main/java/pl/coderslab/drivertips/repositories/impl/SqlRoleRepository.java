@@ -7,6 +7,6 @@ import pl.coderslab.drivertips.repositories.RoleRepository;
 
 
 @Repository
-interface DefaultRoleRepository extends RoleRepository, JpaRepository<Role, Integer> {
+interface SqlRoleRepository extends RoleRepository, JpaRepository<Role, Integer> {
 
 }

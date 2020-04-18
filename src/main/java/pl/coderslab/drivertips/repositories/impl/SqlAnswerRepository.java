@@ -7,5 +7,5 @@ import pl.coderslab.drivertips.repositories.AnswerRepository;
 
 
 @Repository
-interface DefaultAnswerRepository extends AnswerRepository, JpaRepository<Answer, Long> {
+interface SqlAnswerRepository extends AnswerRepository, JpaRepository<Answer, Long> {
 }

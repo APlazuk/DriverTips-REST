@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-interface DefaultTipRepository extends TipRepository, JpaRepository<Tip, Long> {
+interface SqlTipRepository extends TipRepository, JpaRepository<Tip, Long> {
 
     @Override
     @Query(value = "SELECT*FROM tip ORDER BY date DESC LIMIT ?;", nativeQuery = true)

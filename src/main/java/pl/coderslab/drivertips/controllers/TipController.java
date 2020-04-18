@@ -73,9 +73,10 @@ public class TipController {
         return trainingConverter.toDTO(training);
     }
 
+    //do sprawdzenia na konsultacji
 
     @PostMapping("")
-    public ResponseEntity<TipDTO> createNewTip( @RequestParam("media") Long id, @RequestBody @Valid TipDTO tipDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<TipDTO> createNewTip(@RequestParam("media") Long id, @RequestBody @Valid TipDTO tipDTO, UriComponentsBuilder uriComponentsBuilder) {
 
         Multimedia media = multimediaService.getMediaById(id);
 
@@ -113,8 +114,6 @@ public class TipController {
     /*
     TODO
     1.Najpopularniejsze Porady
-    2.Wyświetlanie multimediów
-    3.Kaskada dla relacji one to one z treningiem
     */
 
 

@@ -7,5 +7,5 @@ import pl.coderslab.drivertips.repositories.TagRepository;
 
 
 @Repository
-interface DefaultTagRepository extends TagRepository, JpaRepository<Tag, Long> {
+interface SqlTagRepository extends TagRepository, JpaRepository<Tag, Long> {
 }

@@ -2,10 +2,7 @@ package pl.coderslab.drivertips.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -18,7 +15,6 @@ public class Training extends BaseEntity {
     @JoinColumn(name = "tip_id")
     private Tip tip;
 
-    @OneToMany
-    @JoinColumn(name = "question_id")
+    @OneToMany(mappedBy = "training",cascade = CascadeType.PERSIST)
     private List<Question> questions;
 }

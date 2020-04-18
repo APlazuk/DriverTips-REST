@@ -15,6 +15,10 @@ public class Question extends BaseEntity {
     @Column(nullable = false)
     private Integer points;
 
+    @ManyToOne
+    @JoinColumn(name = "training_id")
+    private Training training;
+
     @OneToMany
     @JoinColumn(name = "answer_id")
     private List<Answer> answers;

@@ -6,6 +6,6 @@ import pl.coderslab.drivertips.model.User;
 import pl.coderslab.drivertips.repositories.UserRepository;
 
 @Repository
-interface DefaultUserRepository extends UserRepository, JpaRepository<User, Long> {
+interface SqlUserRepository extends UserRepository, JpaRepository<User, Long> {
 
 }

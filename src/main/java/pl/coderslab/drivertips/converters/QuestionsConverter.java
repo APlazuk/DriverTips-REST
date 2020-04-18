@@ -20,6 +20,7 @@ public class QuestionsConverter {
     public QuestionDTO toDTO(Question question){
         QuestionDTO questionDTO = new QuestionDTO();
 
+        questionDTO.setId(question.getId());
         questionDTO.setText(question.getText());
         questionDTO.setPoints(question.getPoints());
         questionDTO.setAnswerDTOS(question.getAnswers().stream().map(answer ->answerConverter.toDTO(answer)).collect(Collectors.toList()));
@@ -31,6 +32,7 @@ public class QuestionsConverter {
     public Question fromDTO(QuestionDTO questionDTO){
         Question question = new Question();
 
+        question.setId(questionDTO.getId());
         question.setText(questionDTO.getText());
         question.setPoints(questionDTO.getPoints());
         question.setAnswers(questionDTO.getAnswerDTOS().stream().map(answerDTO -> answerConverter.fromDTO(answerDTO)).collect(Collectors.toList()));
