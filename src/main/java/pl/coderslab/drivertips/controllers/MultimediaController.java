@@ -17,6 +17,8 @@ import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.services.MultimediaService;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -31,15 +33,23 @@ class MultimediaController {
         this.multimediaConverter = multimediaConverter;
     }
 
+    @GetMapping
+    public List<MultimediaDTO> getAll() {
+        List<Multimedia> allMedia = multimediaService.getAll();
+
+        return allMedia.stream().map(multimediaConverter::toDTO).collect(Collectors.toList());
+
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> get(@PathVariable Long id){
+    public ResponseEntity<?> get(@PathVariable Long id) {
         Multimedia media = multimediaService.getMediaById(id);
 
         ByteArrayResource resource = new ByteArrayResource((media.getContent()));
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.valueOf(media.getContentType()))
-                .header("Content-Disposition", "filename =" +media.getName())
+                .header("Content-Disposition", "filename =" + media.getName())
                 .body(resource);
 
     }
@@ -64,9 +74,16 @@ class MultimediaController {
 
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
 
-        }catch (IOException ioe){
+        } catch (IOException ioe) {
             log.error(ioe.getMessage());
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        Multimedia mediaToDelete = multimediaService.getMediaById(id);
+
+        multimediaService.delete(mediaToDelete);
     }
 }

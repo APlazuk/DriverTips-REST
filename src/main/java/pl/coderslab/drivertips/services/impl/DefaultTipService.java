@@ -28,6 +28,11 @@ public class DefaultTipService implements TipService {
     }
 
     @Override
+    public List<Tip> getAll() {
+        return tipRepository.findAll();
+    }
+
+    @Override
     public Tip findById(Long id) {
         Optional<Tip> requestedTip = tipRepository.findById(id);
 
@@ -36,6 +41,21 @@ public class DefaultTipService implements TipService {
         }
 
         return requestedTip.get();
+    }
+
+    @Override
+    public List<Tip> newestTips(Integer limit) {
+        return tipRepository.queryGetNewestTips(limit);
+    }
+
+    @Override
+    public List<Tip> searchTip(String name) {
+        List<Tip> tipsByName = tipRepository.queryGetTipsByName(name);
+
+        if (tipsByName.isEmpty()) {
+            throw new TipNotFoundException(String.format("Porada o danym tytule: '%s' nie została znaleziona", name));
+        }
+        return tipsByName;
     }
 
     @Override
@@ -62,11 +82,6 @@ public class DefaultTipService implements TipService {
     }
 
     @Override
-    public List<Tip> newestTips(Integer limit) {
-        return tipRepository.queryGetNewestTips(limit);
-    }
-
-    @Override
     public Tip updateTip(Long id, Tip tip) {
         Optional<Tip> tipFromDatabase = tipRepository.findById(id);
 
@@ -77,22 +92,7 @@ public class DefaultTipService implements TipService {
     }
 
     @Override
-    public List<Tip> searchTip(String name) {
-        List<Tip> tipsByName = tipRepository.queryGetTipsByName(name);
-
-        if (tipsByName.isEmpty()) {
-            throw new TipNotFoundException(String.format("Porada o danym tytule: '%s' nie została znaleziona", name));
-        }
-        return tipsByName;
-    }
-
-    @Override
     public void delete(Tip tip) {
         tipRepository.deleteById(tip.getId());
-    }
-
-    @Override
-    public List<Tip> getAll() {
-        return tipRepository.findAll();
     }
 }

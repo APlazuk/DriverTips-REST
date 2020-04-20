@@ -79,6 +79,6 @@ public class DefaultTrainingService implements TrainingService {
 
     @Override
     public void delete(Training training) {
-        trainingRepository.deleteById(training);
+        trainingRepository.deleteById(training.getId());
     }
 }

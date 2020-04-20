@@ -2,10 +2,14 @@ package pl.coderslab.drivertips.services;
 
 import pl.coderslab.drivertips.model.Multimedia;
 
+import java.util.List;
+
 public interface MultimediaService {
     Multimedia getMediaById(Long id);
 
     Multimedia addMedia(Multimedia uploadedMultimedia);
 
-//    Multimedia getMediaByTipId(Long tipId);
+    void delete(Multimedia media);
+
+    List<Multimedia> getAll();
 }

@@ -7,6 +7,7 @@ import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.repositories.MultimediaRepository;
 import pl.coderslab.drivertips.services.MultimediaService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,20 +20,29 @@ public class DefaultMultimediaService implements MultimediaService {
     }
 
     @Override
+    public List<Multimedia> getAll() {
+        return multimediaRepository.findAll();
+    }
+
+    @Override
     public Multimedia getMediaById(Long id) {
         Optional<Multimedia> multimedia = multimediaRepository.findMultimediaById(id);
 
-        if (multimedia.isEmpty()){
+        if (multimedia.isEmpty()) {
             throw new MultimediaNotFoundException(String.format("Multimedium o danym id: %s nie istnieje", id));
         }
 
         return multimedia.get();
-
     }
 
     @Override
     public Multimedia addMedia(Multimedia uploadedMultimedia) {
         return multimediaRepository.save(uploadedMultimedia);
+    }
+
+    @Override
+    public void delete(Multimedia media) {
+        multimediaRepository.delete(media.getId());
     }
 
 }
