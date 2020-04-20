@@ -42,7 +42,7 @@ public class DefaultMultimediaService implements MultimediaService {
 
     @Override
     public void delete(Multimedia media) {
-        multimediaRepository.delete(media.getId());
+        multimediaRepository.deleteById(media.getId());
     }
 
 }

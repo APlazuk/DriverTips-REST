@@ -10,7 +10,7 @@ public interface MultimediaRepository {
 
     Optional<Multimedia> findMultimediaById(Long id);
 
-    void delete(Long id);
+    void deleteById(Long id);
 
     List<Multimedia> findAll();
 }
