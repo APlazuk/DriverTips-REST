@@ -36,4 +36,10 @@ public class TrainingConverter {
 
         return training;
     }
+
+    public void applyChanges(Training training, TrainingDTO trainingDTO) {
+
+        training.setTitle(trainingDTO.getTitle());
+        training.setQuestions(trainingDTO.getQuestionDTOS().stream().map(questionDTO -> questionsConverter.fromDTO(questionDTO)).collect(Collectors.toList()));
+    }
 }

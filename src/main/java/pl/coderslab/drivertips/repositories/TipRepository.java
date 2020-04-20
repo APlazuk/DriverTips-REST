@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface TipRepository {
 
+    List<Tip> findAll();
+
     List<Tip> queryGetNewestTips(Integer limit);
 
     List<Tip> queryGetTipsByName(String name);

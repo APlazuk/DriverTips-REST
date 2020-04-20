@@ -34,10 +34,17 @@ public class TipController {
         this.tipConverter = tipConverter;
     }
 
-     /*
-    TODO
-    1.Najpopularniejsze Porady
-    */
+    /*
+   TODO
+   1.Najpopularniejsze Porady
+   */
+
+    @GetMapping("/all")
+    public List<TipDTO> getAll(){
+        List<Tip> allTips = tipService.getAll();
+
+        return allTips.stream().map(tipConverter::toDTO).collect(Collectors.toList());
+    }
 
     @GetMapping("/latest")
     public List<TipDTO> getTheNewest(@RequestParam("limit") Integer limit) {
@@ -54,7 +61,7 @@ public class TipController {
     }
 
     @GetMapping("/search")
-    public List<TipDTO> searchTipsByName(@RequestParam String name){
+    public List<TipDTO> searchTipsByName(@RequestParam String name) {
         List<Tip> tips = tipService.searchTip(name);
 
         return tips.stream().map(tip -> tipConverter.toDTO(tip)).collect(Collectors.toList());
@@ -87,7 +94,7 @@ public class TipController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         Tip tipToDelete = tipService.findById(id);
 
         tipService.delete(tipToDelete);

@@ -14,14 +14,15 @@ import pl.coderslab.drivertips.model.Training;
 import pl.coderslab.drivertips.services.TipService;
 import pl.coderslab.drivertips.services.TrainingService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/app/tip/{tipId}/training")
 class TrainingController {
 
     /*
     TODO
-    1. sprawdzenie poprawności endpointów
-    2.CRUD treningu
     4.sumowanie punktów na dany trening
     */
 
@@ -35,15 +36,22 @@ class TrainingController {
         this.tipService = tipService;
     }
 
+    @GetMapping("/all")
+    public List<TrainingDTO> getAll() {
+        List<Training> allTrainings = trainingService.getAll();
+
+        return allTrainings.stream().map(trainingConverter::toDTO).collect(Collectors.toList());
+    }
+
     @GetMapping("")
-    public TrainingDTO getTraining(@PathVariable Long tipId){
+    public TrainingDTO getTraining(@PathVariable Long tipId) {
         Training training = trainingService.getTrainingByTipId(tipId);
 
         return trainingConverter.toDTO(training);
     }
 
     @PostMapping("")
-    public ResponseEntity<TrainingDTO> createNew(@PathVariable Long tipId, @RequestBody TrainingDTO trainingDTO, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<TrainingDTO> createNew(@PathVariable Long tipId, @RequestBody TrainingDTO trainingDTO, UriComponentsBuilder uriComponentsBuilder) {
         Tip tip = tipService.findById(tipId);
 
         Training training = trainingConverter.fromDTO(trainingDTO);
@@ -57,5 +65,23 @@ class TrainingController {
         headers.setLocation(uriComponents.toUri());
 
         return new ResponseEntity<TrainingDTO>(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public TrainingDTO edit(@PathVariable Long id, @RequestBody TrainingDTO trainingDTO) {
+        Training trainingToUpdate = trainingService.findTrainingById(id);
+
+        trainingConverter.applyChanges(trainingToUpdate, trainingDTO);
+
+        Training updatedTraining = trainingService.update(id, trainingToUpdate);
+
+        return trainingConverter.toDTO(updatedTraining);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        Training trainingToDelete = trainingService.findTrainingById(id);
+
+        trainingService.delete(trainingToDelete);
     }
 }

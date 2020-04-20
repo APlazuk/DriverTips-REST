@@ -1,6 +1,7 @@
 package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.drivertips.exceptions.TrainingAlreadyExistsException;
 import pl.coderslab.drivertips.model.Question;
 import pl.coderslab.drivertips.model.Tip;
 import pl.coderslab.drivertips.model.Training;
@@ -23,6 +24,10 @@ public class DefaultTrainingService implements TrainingService {
         this.questionRepository = questionRepository;
     }
 
+    @Override
+    public List<Training> getAll() {
+        return trainingRepository.findAll();
+    }
 
     @Override
     public Training getTrainingByTipId(Long tipId) {
@@ -36,18 +41,22 @@ public class DefaultTrainingService implements TrainingService {
     }
 
     @Override
-    public Training getTrainingById(Long id) {
+    public Training findTrainingById(Long id) {
         Optional<Training> trainingFromDB = trainingRepository.findTrainingById(id);
 
-        if(trainingFromDB.isEmpty()){
-            throw new TrainingNotFoundException(String.format("Traning dla id: %s nie istnieje",id));
+        if (trainingFromDB.isEmpty()) {
+            throw new TrainingNotFoundException(String.format("Traning dla id: %s nie istnieje", id));
         }
         return trainingFromDB.get();
     }
 
-    //trzeba rzucić wyjątkiem jeśli chcemy dodać trening z ram użytym tipem. Postman wyrzuca 500 -More than one row with the given identifier was found: 1
     @Override
     public Training createNewTraining(Training training, Tip tip) {
+
+        if (trainingRepository.findTrainingByTipId(tip.getId()).isPresent()) {
+            throw new TrainingAlreadyExistsException("Traning dla danej Porady już istnieje");
+        }
+
         List<Question> questions = training.getQuestions();
         questions.forEach(questionRepository::save);
         questions.forEach(question -> question.setTraining(training));
@@ -55,5 +64,21 @@ public class DefaultTrainingService implements TrainingService {
         training.setTip(tip);
 
         return trainingRepository.save(training);
+    }
+
+    @Override
+    public Training update(Long id, Training training) {
+        Optional<Training> trainingFromDB = trainingRepository.findTrainingById(id);
+
+        if (trainingFromDB.isEmpty()) {
+            throw new TrainingNotFoundException(String.format("Traning dla id: %s nie istnieje", id));
+        }
+
+        return trainingFromDB.get();
+    }
+
+    @Override
+    public void delete(Training training) {
+        trainingRepository.deleteById(training);
     }
 }

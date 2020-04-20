@@ -38,7 +38,6 @@ public class DefaultTipService implements TipService {
         return requestedTip.get();
     }
 
-    //do testowania
     @Override
     public Tip createNewTip(Tip tip) {
         List<Multimedia> multimedia = tip.getMultimedia();
@@ -90,5 +89,10 @@ public class DefaultTipService implements TipService {
     @Override
     public void delete(Tip tip) {
         tipRepository.deleteById(tip.getId());
+    }
+
+    @Override
+    public List<Tip> getAll() {
+        return tipRepository.findAll();
     }
 }
