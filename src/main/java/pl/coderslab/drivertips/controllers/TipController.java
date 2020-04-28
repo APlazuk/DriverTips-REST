@@ -48,7 +48,7 @@ public class TipController {
 
     @GetMapping("/latest")
     public List<TipDTO> getTheNewest(@RequestParam("limit") Integer limit) {
-        List<Tip> tips = tipService.newestTips(limit);
+       List<Tip> tips = tipService.newestTips(limit);
 
         return tips.stream().map(tipConverter::toDTO).collect(Collectors.toList());
     }
