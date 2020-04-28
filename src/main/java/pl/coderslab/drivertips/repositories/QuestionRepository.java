@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QuestionRepository {
-    Question save(Question question);
-
     List<Question> getQuestionsByTrainingId(Long id);
 
     Optional<List<Question>> getQuestionsByTipIdAndTrainingId(Long tipId, Long trainingId);
 
     Optional<Question> findQuestionById(Long id);
+
+    Question save(Question question);
+
+    void deleteById(Long id);
 }

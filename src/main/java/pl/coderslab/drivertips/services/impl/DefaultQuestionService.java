@@ -82,4 +82,10 @@ public class DefaultQuestionService implements QuestionService {
 
         return questionFromDB.get();
     }
+
+    @Override
+    public void deleteQuestion(Question question) {
+        questionRepository.deleteById(question.getId());
+
+    }
 }

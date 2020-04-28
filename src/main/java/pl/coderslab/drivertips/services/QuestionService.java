@@ -13,4 +13,6 @@ public interface QuestionService {
     Question findQuestionById(Long id);
 
     Question updateQuestion(Long id, Question question);
+
+    void deleteQuestion(Question question);
 }

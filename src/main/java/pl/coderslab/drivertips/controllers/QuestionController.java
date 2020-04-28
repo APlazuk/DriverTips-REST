@@ -71,4 +71,11 @@ public class QuestionController {
 
      return questionsConverter.toDTO(updatedQuestion);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        Question questionToDelete = questionService.findQuestionById(id);
+
+        questionService.deleteQuestion(questionToDelete);
+    }
 }
