@@ -12,4 +12,6 @@ public interface QuestionRepository {
     List<Question> getQuestionsByTrainingId(Long id);
 
     Optional<List<Question>> getQuestionsByTipIdAndTrainingId(Long tipId, Long trainingId);
+
+    Optional<Question> findQuestionById(Long id);
 }

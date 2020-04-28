@@ -9,4 +9,8 @@ public interface QuestionService {
     List<Question> getQuestionByTrainingId(Long tipId, Long trainingId);
 
     Question createNewQuestion(Question question, Training training);
+
+    Question findQuestionById(Long id);
+
+    Question updateQuestion(Long id, Question question);
 }

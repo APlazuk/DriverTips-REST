@@ -40,4 +40,13 @@ public class QuestionsConverter {
 
         return question;
     }
+
+    public void applyChanges(Question question, QuestionDTO questionDTO) {
+        question.setId(questionDTO.getId());
+        question.setText(questionDTO.getText());
+        question.setPoints(questionDTO.getPoints());
+
+        question.setMultimedia(questionDTO.getMultimediaDTOS().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
+        question.setAnswers(questionDTO.getAnswerDTOS().stream().map(answerDTO -> answerConverter.fromDTO(answerDTO)).collect(Collectors.toList()));
+    }
 }

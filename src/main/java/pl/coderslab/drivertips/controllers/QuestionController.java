@@ -57,4 +57,15 @@ public class QuestionController {
 
         return new ResponseEntity<QuestionDTO>(headers, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public QuestionDTO edit(@PathVariable Long id, @RequestBody QuestionDTO questionDTO){
+     Question questionToUpdate = questionService.findQuestionById(id);
+
+     questionsConverter.applyChanges(questionToUpdate, questionDTO);
+
+     Question updatedQuestion = questionService.updateQuestion(id, questionToUpdate);
+
+     return questionsConverter.toDTO(updatedQuestion);
+    }
 }
