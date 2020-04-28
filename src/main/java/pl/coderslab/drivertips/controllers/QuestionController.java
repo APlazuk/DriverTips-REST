@@ -51,7 +51,9 @@ public class QuestionController {
 
         questionsConverter.toDTO(saved);
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/training/{trainingId}/question/{id}").buildAndExpand(tipId,trainingId,saved.getId());
+        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/training/{trainingId}/question/{id}")
+                                                          .buildAndExpand(tipId,trainingId,saved.getId());
+
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
@@ -64,7 +66,8 @@ public class QuestionController {
 
      questionsConverter.applyChanges(questionToUpdate, questionDTO);
 
-     Question updatedQuestion = questionService.updateQuestion(id, questionToUpdate);
+     Question updatedQuestion = questionService.updateQuestion(id,
+             questionToUpdate);
 
      return questionsConverter.toDTO(updatedQuestion);
     }
