@@ -1,6 +1,7 @@
 package pl.coderslab.drivertips.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@ToString(exclude = {"questions"})
 public class Training extends BaseEntity {
 
     private String title;

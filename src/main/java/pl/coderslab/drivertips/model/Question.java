@@ -14,6 +14,7 @@ public class Question extends BaseEntity {
 
     @Column(nullable = false)
     private String text;
+
     @Column(nullable = false)
     private Integer points;
 
@@ -25,7 +26,7 @@ public class Question extends BaseEntity {
     private List<Answer> answers;
 
     @OneToMany
-    @JoinColumn(name = "mutlimedia_id")
+    @JoinColumn(name = "question_id")
     private List<Multimedia> multimedia;
 
 }

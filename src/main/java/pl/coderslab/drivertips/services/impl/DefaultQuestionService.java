@@ -2,6 +2,7 @@ package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.drivertips.exceptions.MultimediaAlreadyInUseException;
 import pl.coderslab.drivertips.exceptions.MultimediaNotFoundException;
 import pl.coderslab.drivertips.exceptions.QuestionNotFoundException;
 import pl.coderslab.drivertips.model.Answer;
@@ -48,7 +49,6 @@ public class DefaultQuestionService implements QuestionService {
         List<Multimedia> multimedia = question.getMultimedia();
         ListIterator<Multimedia> multimediaListIterator = multimedia.listIterator();
 
-        //media naruszają więzy integralności podczas aktualizacji
         List<Multimedia> media = new ArrayList<>();
         if (multimediaListIterator.hasNext()) {
             Multimedia next = multimediaListIterator.next();
@@ -56,8 +56,11 @@ public class DefaultQuestionService implements QuestionService {
 
             if (mediaFromDB.isEmpty()) {
                 throw new MultimediaNotFoundException(String.format("Medium o danym id: '%s' nie zostało znalezione", mediaFromDB.get().getId()));
+            }else {
+                if (!multimediaRepository.isMediaAlreadyInUse(mediaFromDB.get().getId())){
+                    throw new MultimediaAlreadyInUseException(String.format("Medium o danym id: '%s' jest już używane przez inny obiekt", mediaFromDB.get().getId()));
+                }
             }
-
             media.add(mediaFromDB.get());
         }
 
@@ -98,6 +101,5 @@ public class DefaultQuestionService implements QuestionService {
     @Override
     public void deleteQuestion(Question question) {
         questionRepository.deleteById(question.getId());
-
     }
 }

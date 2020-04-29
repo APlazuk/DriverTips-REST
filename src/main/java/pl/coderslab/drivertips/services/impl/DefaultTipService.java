@@ -2,7 +2,8 @@ package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.drivertips.exceptions.MediaNotFoundException;
+import pl.coderslab.drivertips.exceptions.MultimediaAlreadyInUseException;
+import pl.coderslab.drivertips.exceptions.MultimediaNotFoundException;
 import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.model.Tip;
 import pl.coderslab.drivertips.exceptions.TipNotFoundException;
@@ -63,18 +64,20 @@ public class DefaultTipService implements TipService {
         List<Multimedia> multimedia = tip.getMultimedia();
         ListIterator<Multimedia> multimediaListIterator = multimedia.listIterator();
 
-        Optional<Multimedia> mediaFromDB = Optional.empty();
+        List<Multimedia> media = new ArrayList<>();
         if (multimediaListIterator.hasNext()) {
             Multimedia next = multimediaListIterator.next();
-            mediaFromDB = multimediaRepository.findMultimediaById(next.getId());
-        }
+            Optional<Multimedia> mediaFromDB = multimediaRepository.findMultimediaById(next.getId());
 
-        if (mediaFromDB.isEmpty()) {
-            throw new MediaNotFoundException(String.format("Medium o danym id: '%s' nie zostało znalezione", mediaFromDB.get().getId()));
+            if (mediaFromDB.isEmpty()) {
+                throw new MultimediaNotFoundException(String.format("Medium o danym id: '%s' nie zostało znalezione", mediaFromDB.get().getId()));
+            }else {
+                if (!multimediaRepository.isMediaAlreadyInUse(mediaFromDB.get().getId())){
+                    throw new MultimediaAlreadyInUseException(String.format("Medium o danym id: '%s' jest już używane przez inny obiekt", mediaFromDB.get().getId()));
+                }
+            }
+            media.add(mediaFromDB.get());
         }
-
-        List<Multimedia> media = new ArrayList<>();
-        media.add(mediaFromDB.get());
 
         tip.setMultimedia(media);
 

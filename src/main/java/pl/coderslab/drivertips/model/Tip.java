@@ -16,8 +16,10 @@ public class Tip  extends BaseEntity{
 
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String description;
+
     @Column(nullable = false)
     private LocalDate date;
 
@@ -25,7 +27,7 @@ public class Tip  extends BaseEntity{
     private Training training;
 
     @OneToMany
-    @JoinColumn(name = "mutlimedia_id")
+    @JoinColumn(name = "tip_id")
     private List<Multimedia> multimedia;
 
     @ManyToMany
