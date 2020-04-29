@@ -1,6 +1,7 @@
 package pl.coderslab.drivertips.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "questions")
+@ToString(exclude = {"training"})
 public class Question extends BaseEntity {
 
     @Column(nullable = false)
@@ -19,8 +21,7 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "training_id")
     private Training training;
 
-    @OneToMany
-    @JoinColumn(name = "answer_id")
+    @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
     private List<Answer> answers;
 
     @OneToMany

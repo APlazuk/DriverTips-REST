@@ -1,6 +1,7 @@
 package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.drivertips.exceptions.TrainingAlreadyExistsException;
 import pl.coderslab.drivertips.model.Question;
 import pl.coderslab.drivertips.model.Tip;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DefaultTrainingService implements TrainingService {
 
     private final TrainingRepository trainingRepository;

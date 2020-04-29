@@ -1,6 +1,7 @@
 package pl.coderslab.drivertips.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,4 +19,7 @@ public class Answer extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "mutlimedia_id")
     private List<Multimedia> multimedia;
+
+    @ManyToOne
+    private Question question;
 }

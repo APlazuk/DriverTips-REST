@@ -32,7 +32,8 @@ public class QuestionController {
 
      /*
     TODO
-    1.CRUD
+    1.zliczanie punktów
+    2. lista odpowiedzi
     */
 
     @GetMapping("")
@@ -43,7 +44,7 @@ public class QuestionController {
     }
 
     @PostMapping("")
-    public ResponseEntity<QuestionDTO> createNew(@PathVariable Long trainingId,@PathVariable Long tipId, @RequestBody QuestionDTO questionDTO, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<QuestionDTO> createNew(@PathVariable Long tipId,@PathVariable Long trainingId, @RequestBody QuestionDTO questionDTO, UriComponentsBuilder uriComponentsBuilder){
         Training training = trainingService.findTrainingById(trainingId);
         Question question = questionsConverter.fromDTO(questionDTO);
 
@@ -51,8 +52,7 @@ public class QuestionController {
 
         questionsConverter.toDTO(saved);
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/training/{trainingId}/question/{id}")
-                                                          .buildAndExpand(tipId,trainingId,saved.getId());
+        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/training/{trainingId}/question/{id}").buildAndExpand(tipId,trainingId,saved.getId());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
