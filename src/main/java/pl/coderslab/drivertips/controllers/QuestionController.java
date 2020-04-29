@@ -33,7 +33,6 @@ public class QuestionController {
      /*
     TODO
     1.zliczanie punktów
-    2. lista odpowiedzi
     */
 
     @GetMapping("")

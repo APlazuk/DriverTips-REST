@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.coderslab.drivertips.services.UserService;
 import pl.coderslab.drivertips.services.impl.SpringDataUserDetailsService;
 
 
@@ -14,9 +15,15 @@ import pl.coderslab.drivertips.services.impl.SpringDataUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private UserService userService;
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
     @Bean
     public SpringDataUserDetailsService customUserDetailsService() {
-        return new SpringDataUserDetailsService();
+        return new SpringDataUserDetailsService(userService);
     }
 
     @Bean
