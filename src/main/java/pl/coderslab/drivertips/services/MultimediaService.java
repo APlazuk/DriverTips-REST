@@ -12,4 +12,6 @@ public interface MultimediaService {
     void delete(Multimedia media);
 
     List<Multimedia> getAll();
+
+    List<Multimedia> getMultimedia(List<Multimedia> multimedia);
 }

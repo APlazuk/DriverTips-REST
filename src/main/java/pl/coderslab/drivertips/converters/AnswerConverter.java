@@ -18,6 +18,7 @@ public class AnswerConverter {
     public AnswerDTO toDTO(Answer answer){
         AnswerDTO answerDTO = new AnswerDTO();
 
+        answerDTO.setId(answer.getId());
         answerDTO.setText(answer.getText());
         answerDTO.setCorrect(answer.getCorrect());
         answerDTO.setMultimediaDTOS(answer.getMultimedia().stream().map(multimedia -> multimediaConverter.toDTO(multimedia)).collect(Collectors.toList()));
@@ -28,6 +29,7 @@ public class AnswerConverter {
     public Answer fromDTO(AnswerDTO answerDTO){
         Answer answer = new Answer();
 
+        answer.setId(answerDTO.getId());
         answer.setText(answerDTO.getText());
         answer.setCorrect(answerDTO.getCorrect());
         answer.setMultimedia(answerDTO.getMultimediaDTOS().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));

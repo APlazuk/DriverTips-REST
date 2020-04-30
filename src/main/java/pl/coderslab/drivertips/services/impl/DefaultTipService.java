@@ -2,18 +2,14 @@ package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.drivertips.exceptions.MultimediaAlreadyInUseException;
-import pl.coderslab.drivertips.exceptions.MultimediaNotFoundException;
 import pl.coderslab.drivertips.model.Multimedia;
 import pl.coderslab.drivertips.model.Tip;
 import pl.coderslab.drivertips.exceptions.TipNotFoundException;
-import pl.coderslab.drivertips.repositories.MultimediaRepository;
 import pl.coderslab.drivertips.repositories.TipRepository;
+import pl.coderslab.drivertips.services.MultimediaService;
 import pl.coderslab.drivertips.services.TipService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 
 @Service
@@ -21,11 +17,11 @@ import java.util.Optional;
 public class DefaultTipService implements TipService {
 
     private final TipRepository tipRepository;
-    private final MultimediaRepository multimediaRepository;
+    private final MultimediaService multimediaService;
 
-    public DefaultTipService(TipRepository tipRepository, MultimediaRepository multimediaRepository) {
+    public DefaultTipService(TipRepository tipRepository, MultimediaService multimediaService) {
         this.tipRepository = tipRepository;
-        this.multimediaRepository = multimediaRepository;
+        this.multimediaService = multimediaService;
     }
 
     @Override
@@ -62,22 +58,7 @@ public class DefaultTipService implements TipService {
     @Override
     public Tip createNewTip(Tip tip) {
         List<Multimedia> multimedia = tip.getMultimedia();
-        ListIterator<Multimedia> multimediaListIterator = multimedia.listIterator();
-
-        List<Multimedia> media = new ArrayList<>();
-        if (multimediaListIterator.hasNext()) {
-            Multimedia next = multimediaListIterator.next();
-            Optional<Multimedia> mediaFromDB = multimediaRepository.findMultimediaById(next.getId());
-
-            if (mediaFromDB.isEmpty()) {
-                throw new MultimediaNotFoundException(String.format("Medium o danym id: '%s' nie zostało znalezione", mediaFromDB.get().getId()));
-            }else {
-                if (!multimediaRepository.isMediaAlreadyInUse(mediaFromDB.get().getId())){
-                    throw new MultimediaAlreadyInUseException(String.format("Medium o danym id: '%s' jest już używane przez inny obiekt", mediaFromDB.get().getId()));
-                }
-            }
-            media.add(mediaFromDB.get());
-        }
+        List<Multimedia> media = multimediaService.getMultimedia(multimedia);
 
         tip.setMultimedia(media);
 

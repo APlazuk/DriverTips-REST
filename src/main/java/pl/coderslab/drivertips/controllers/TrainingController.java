@@ -60,7 +60,7 @@ class TrainingController {
 
         trainingConverter.toDTO(saved);
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/training/{id}").buildAndExpand(saved.getId());
+        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/training/{id}").buildAndExpand(tipId, saved.getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
