@@ -71,14 +71,8 @@ public class DefaultQuestionService implements QuestionService {
     }
 
     @Override
-    public Question updateQuestion(Long id, Question question) {
-        Optional<Question> questionFromDB = questionRepository.findQuestionById(id);
-
-        if (questionFromDB.isEmpty()){
-            throw new QuestionNotFoundException(String.format("Pytanie o danym id: %s nie istnieje", id));
-        }
-
-        return questionFromDB.get();
+    public Question updateQuestion(Question question) {
+        return questionRepository.save(question);
     }
 
     @Override

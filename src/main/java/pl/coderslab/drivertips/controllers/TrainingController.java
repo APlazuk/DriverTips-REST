@@ -73,7 +73,7 @@ class TrainingController {
 
         trainingConverter.applyChanges(trainingToUpdate, trainingDTO);
 
-        Training updatedTraining = trainingService.update(id, trainingToUpdate);
+        Training updatedTraining = trainingService.updateTraining(trainingToUpdate);
 
         return trainingConverter.toDTO(updatedTraining);
     }

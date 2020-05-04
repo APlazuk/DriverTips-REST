@@ -12,7 +12,7 @@ public interface QuestionService {
 
     Question findQuestionById(Long id);
 
-    Question updateQuestion(Long id, Question question);
+    Question updateQuestion(Question question);
 
     void deleteQuestion(Question question);
 }

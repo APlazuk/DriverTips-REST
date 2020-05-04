@@ -72,8 +72,7 @@ public class QuestionController {
 
      questionsConverter.applyChanges(questionToUpdate, questionDTO);
 
-     Question updatedQuestion = questionService.updateQuestion(id,
-             questionToUpdate);
+     Question updatedQuestion = questionService.updateQuestion(questionToUpdate);
 
      return questionsConverter.toDTO(updatedQuestion);
     }

@@ -69,14 +69,8 @@ public class DefaultTrainingService implements TrainingService {
     }
 
     @Override
-    public Training update(Long id, Training training) {
-        Optional<Training> trainingFromDB = trainingRepository.findTrainingById(id);
-
-        if (trainingFromDB.isEmpty()) {
-            throw new TrainingNotFoundException(String.format("Traning dla id: %s nie istnieje", id));
-        }
-
-        return trainingFromDB.get();
+    public Training updateTraining(Training training) {
+        return trainingRepository.save(training);
     }
 
     @Override

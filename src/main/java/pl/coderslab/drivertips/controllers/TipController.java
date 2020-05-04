@@ -88,7 +88,7 @@ public class TipController {
 
         tipConverter.applyChanges(tipToUpdate, tipDTO);
 
-        Tip updatedTip = tipService.updateTip(id, tipToUpdate);
+        Tip updatedTip = tipService.updateTip(tipToUpdate);
 
         return tipConverter.toDTO(updatedTip);
     }
