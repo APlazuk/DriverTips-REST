@@ -15,6 +15,8 @@ public interface TipRepository {
 
     Optional<Tip> findById(Long id);
 
+    Optional<Tip> getOne(Tip tip);
+
     Tip save(Tip tip);
 
     void deleteById(Long id);

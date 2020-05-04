@@ -32,7 +32,7 @@ public class TipConverter {
         tipDTO.setDate(tip.getDate());
 
         tipDTO.setMultimediaDTO(tip.getMultimedia().stream().map(multimedia -> multimediaConverter.toDTO(multimedia)).collect(Collectors.toList()));
-        tipDTO.setTagDTOS(tip.getTags().stream().map(tag -> tagConverter.toDTO(tag)).collect(Collectors.toList()));
+        tipDTO.setTagDTOS(tip.getTags().stream().map(tag -> tagConverter.toDTO(tag)).collect(Collectors.toSet()));
 
         return tipDTO;
     }
@@ -46,7 +46,7 @@ public class TipConverter {
         tip.setDate(tipDTO.getDate());
 
         tip.setMultimedia(tipDTO.getMultimediaDTO().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
-        tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toList()));
+        tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toSet()));
         return tip;
     }
 
@@ -57,6 +57,6 @@ public class TipConverter {
         tip.setTitle(tipDTO.getTitle());
 
         tip.setMultimedia(tipDTO.getMultimediaDTO().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
-        tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toList()));
+        tip.setTags(tipDTO.getTagDTOS().stream().map(tagDTO -> tagConverter.fromDTO(tagDTO)).collect(Collectors.toSet()));
     }
 }

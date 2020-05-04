@@ -1,14 +1,13 @@
 package pl.coderslab.drivertips.model;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
-@Data
+@Getter @Setter
 @ToString(exclude = {"questions"})
 public class Training extends BaseEntity {
 

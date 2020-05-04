@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class TipDTO {
@@ -19,6 +20,6 @@ public class TipDTO {
     private LocalDate date;
 
     private List<MultimediaDTO> multimediaDTO;
-    private List<TagDTO> tagDTOS;
+    private Set<TagDTO> tagDTOS;
 
 }

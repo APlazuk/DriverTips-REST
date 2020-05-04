@@ -6,17 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.coderslab.drivertips.converters.MultimediaConverter;
 import pl.coderslab.drivertips.converters.TipConverter;
-import pl.coderslab.drivertips.converters.TrainingConverter;
-import pl.coderslab.drivertips.model.Multimedia;
-import pl.coderslab.drivertips.model.Training;
 import pl.coderslab.drivertips.dtos.TipDTO;
 import pl.coderslab.drivertips.model.Tip;
-import pl.coderslab.drivertips.dtos.TrainingDTO;
-import pl.coderslab.drivertips.services.MultimediaService;
 import pl.coderslab.drivertips.services.TipService;
-import pl.coderslab.drivertips.services.TrainingService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -34,10 +27,6 @@ public class TipController {
         this.tipConverter = tipConverter;
     }
 
-    /*
-   TODO
-   1.Najpopularniejsze Porady
-   */
 
     @GetMapping("/all")
     public List<TipDTO> getAll(){

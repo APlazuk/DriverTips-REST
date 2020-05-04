@@ -21,5 +21,4 @@ interface SqlTipRepository extends TipRepository, JpaRepository<Tip, Long> {
     @Query(value = "SELECT * FROM tip WHERE title LIKE %?1%", nativeQuery = true)
     List<Tip> queryGetTipsByName(String name);
 
-
 }

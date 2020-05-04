@@ -1,8 +1,7 @@
 package pl.coderslab.drivertips.model;
 
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter @Setter
 @ToString(exclude = {"multimedia","tags"})
 public class Tip  extends BaseEntity{
 
@@ -31,7 +30,7 @@ public class Tip  extends BaseEntity{
     @JoinColumn(name = "tip_id")
     private List<Multimedia> multimedia;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tips")
     private Set<Tag> tags;
 
     @PrePersist
