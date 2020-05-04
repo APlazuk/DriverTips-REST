@@ -33,7 +33,7 @@ class AnswerController {
 
 
     @GetMapping("")
-    @ApiOperation("Show all listed Answer for each Question")
+    @ApiOperation("Show all listed Answers for each Question")
     public List<AnswerDTO> getAnswersByQuestionId(@PathVariable Long questionId) {
 
         List<Answer> answers = answerService.getAnswersByQuestionId(questionId);
