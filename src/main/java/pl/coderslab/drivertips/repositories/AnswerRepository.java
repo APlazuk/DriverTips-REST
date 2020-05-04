@@ -12,4 +12,8 @@ public interface AnswerRepository {
     Optional<Answer> findAnswerByQuestionId(Long questionId);
 
     Optional<List<Answer>> getAnswersByQuestionId(Long questionId);
+
+    Optional<Answer> findAnswerById(Long id);
+
+    void deleteById(Long id);
 }

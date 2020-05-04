@@ -18,6 +18,6 @@ public class Training extends BaseEntity {
     @JoinColumn(name = "tip_id")
     private Tip tip;
 
-    @OneToMany(mappedBy = "training",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "training",cascade = CascadeType.ALL)
     private List<Question> questions;
 }

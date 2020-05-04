@@ -37,4 +37,11 @@ public class AnswerConverter {
         return answer;
 
     }
+
+    public void applyChanges(Answer answer, AnswerDTO answerDTO) {
+
+        answer.setCorrect(answerDTO.getCorrect());
+        answer.setText(answerDTO.getText());
+        answer.setMultimedia(answerDTO.getMultimediaDTOS().stream().map(multimediaDTO -> multimediaConverter.fromDTO(multimediaDTO)).collect(Collectors.toList()));
+    }
 }

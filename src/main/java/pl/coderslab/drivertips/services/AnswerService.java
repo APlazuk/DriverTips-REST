@@ -6,9 +6,15 @@ import pl.coderslab.drivertips.model.Question;
 import java.util.List;
 
 public interface AnswerService {
-    List<Answer> getAnswersByQuestionId(Long questionId);
+    Answer createNewAnswer(Question question, Answer answer);
+
+    Answer findAnswerById(Long id);
 
     Answer getAnswerByQuestionId(Long questionId);
 
-    Answer createNewAnswer(Question question, Answer answer);
+    Answer updateAnswer(Answer answer);
+
+    List<Answer> getAnswersByQuestionId(Long questionId);
+
+    void deleteAnswer(Answer answerToDelete);
 }

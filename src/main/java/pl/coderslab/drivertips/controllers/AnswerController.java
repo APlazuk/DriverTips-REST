@@ -39,6 +39,13 @@ class AnswerController {
         return answers.stream().map(answer -> answerConverter.toDTO(answer)).collect(Collectors.toList());
     }
 
+    @GetMapping("/{id}")
+    public AnswerDTO getAnswerById(@PathVariable Long id){
+        Answer answer = answerService.findAnswerById(id);
+
+        return answerConverter.toDTO(answer);
+    }
+
     @PostMapping("")
     public ResponseEntity<AnswerDTO> createNew(@PathVariable Long tipId,@PathVariable Long trainingId, @PathVariable Long questionId, @RequestBody AnswerDTO answerDTO, UriComponentsBuilder uriComponentsBuilder) {
         Question question = questionService.findQuestionById(questionId);
@@ -53,5 +60,23 @@ class AnswerController {
         httpHeaders.setLocation(uriComponents.toUri());
 
         return new ResponseEntity<AnswerDTO>(httpHeaders, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public AnswerDTO edit(@PathVariable Long id, @RequestBody AnswerDTO answerDTO){
+        Answer answerToUpdate = answerService.findAnswerById(id);
+
+        answerConverter.applyChanges(answerToUpdate, answerDTO);
+
+        Answer updatedAnswer = answerService.updateAnswer(answerToUpdate);
+
+        return answerConverter.toDTO(updatedAnswer);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Long id){
+        Answer answerToDelete = answerService.findAnswerById(id);
+
+        answerService.deleteAnswer(answerToDelete);
     }
 }

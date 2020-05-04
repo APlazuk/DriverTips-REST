@@ -42,7 +42,7 @@ public class QuestionsConverter {
     }
 
     public void applyChanges(Question question, QuestionDTO questionDTO) {
-        question.setId(questionDTO.getId());
+
         question.setText(questionDTO.getText());
         question.setPoints(questionDTO.getPoints());
 

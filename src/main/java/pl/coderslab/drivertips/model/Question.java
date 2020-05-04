@@ -22,7 +22,7 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "training_id")
     private Training training;
 
-    @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
     private List<Answer> answers;
 
     @OneToMany

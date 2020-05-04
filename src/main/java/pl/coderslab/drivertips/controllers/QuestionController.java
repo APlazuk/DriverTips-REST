@@ -42,6 +42,13 @@ public class QuestionController {
         return questions.stream().map(questionsConverter::toDTO).collect(Collectors.toList());
     }
 
+    @GetMapping("/{id}")
+    public QuestionDTO getQuestionById(@PathVariable Long id){
+        Question question = questionService.findQuestionById(id);
+
+        return questionsConverter.toDTO(question);
+    }
+
     @PostMapping("")
     public ResponseEntity<QuestionDTO> createNew(@PathVariable Long tipId,@PathVariable Long trainingId, @RequestBody QuestionDTO questionDTO, UriComponentsBuilder uriComponentsBuilder){
         Training training = trainingService.findTrainingById(trainingId);

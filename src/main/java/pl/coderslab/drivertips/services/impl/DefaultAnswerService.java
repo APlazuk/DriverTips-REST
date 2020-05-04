@@ -38,6 +38,11 @@ public class DefaultAnswerService implements AnswerService {
     }
 
     @Override
+    public void deleteAnswer(Answer answerToDelete) {
+        answerRepository.deleteById(answerToDelete.getId());
+    }
+
+    @Override
     public Answer getAnswerByQuestionId(Long questionId) {
         Optional<Answer> answerFromDB = answerRepository.findAnswerByQuestionId(questionId);
 
@@ -49,6 +54,11 @@ public class DefaultAnswerService implements AnswerService {
     }
 
     @Override
+    public Answer updateAnswer(Answer answer) {
+        return answerRepository.save(answer);
+    }
+
+    @Override
     public Answer createNewAnswer(Question question, Answer answer) {
         List<Multimedia> multimedia = answer.getMultimedia();
         List<Multimedia> media = multimediaService.getMultimedia(multimedia);
@@ -57,5 +67,16 @@ public class DefaultAnswerService implements AnswerService {
         answer.setQuestion(question);
 
         return answerRepository.save(answer);
+    }
+
+    @Override
+    public Answer findAnswerById(Long id) {
+        Optional<Answer> answerFromDB = answerRepository.findAnswerById(id);
+
+        if (answerFromDB.isEmpty()) {
+            throw new AnswerNotFoundException(String.format("Odpowiedź dla danego id: %s nie istnieje", id));
+        }
+
+        return answerFromDB.get();
     }
 }
