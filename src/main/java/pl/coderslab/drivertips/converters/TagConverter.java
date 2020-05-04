@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import pl.coderslab.drivertips.model.Tag;
 import pl.coderslab.drivertips.dtos.TagDTO;
 
-import java.util.stream.Collectors;
 
 @Component
 
@@ -21,7 +20,6 @@ public class TagConverter {
 
         tagDTO.setId(tag.getId());
         tagDTO.setName(tag.getName());
-//        tagDTO.setTipDTOS(tag.getTips().stream().map(tip -> tipConverter.toDTO(tip)).collect(Collectors.toSet()));
 
         return tagDTO;
     }
@@ -31,8 +29,12 @@ public class TagConverter {
 
         tag.setId(tagDTO.getId());
         tag.setName(tagDTO.getName());
-//        tag.setTips(tagDTO.getTipDTOS().stream().map(tipDTO -> tipConverter.fromDTO(tipDTO)).collect(Collectors.toSet()));
 
         return tag;
+    }
+
+    public void applyChanges(Tag tag, TagDTO tagDTO) {
+
+        tag.setName(tagDTO.getName());
     }
 }

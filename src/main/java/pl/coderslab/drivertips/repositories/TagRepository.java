@@ -14,4 +14,6 @@ public interface TagRepository {
     Optional<Tag> findTagByName(String name);
 
     Tag save(Tag tag);
+
+    void delete(Tag tag);
 }

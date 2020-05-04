@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/app/tip/{tipId}/tag")
+@RequestMapping("/app/tag")
 class TagController {
 
     private final TagService tagService;
@@ -37,7 +37,14 @@ class TagController {
         return allTags.stream().map(tag -> tagConverter.toDTO(tag)).collect(Collectors.toList());
     }
 
-    @PostMapping("")
+    @GetMapping("/{id}")
+    public TagDTO getById(@PathVariable Long id){
+        Tag tagFromDB = tagService.findTagById(id);
+
+        return tagConverter.toDTO(tagFromDB);
+    }
+
+    @PostMapping("/{tipId}/tip")
     public ResponseEntity<TagDTO> createNewTag(@PathVariable Long tipId, @RequestBody TagDTO tagDTO, UriComponentsBuilder uriComponentsBuilder) {
         Tip tip = tipService.findById(tipId);
 
@@ -47,10 +54,26 @@ class TagController {
 
         tagConverter.toDTO(saved);
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/app/tip/{tipId}/tag/{id}").buildAndExpand(tipId, saved.getId());
+        UriComponents uriComponents = uriComponentsBuilder.path("/app/tag/{id}").buildAndExpand(saved.getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public TagDTO edit(@PathVariable Long id, @RequestBody TagDTO tagDTO){
+        Tag tagToUpdate = tagService.findTagById(id);
+
+        tagConverter.applyChanges(tagToUpdate, tagDTO);
+
+        Tag updatedTag = tagService.updateTag(tagToUpdate);
+
+        return tagConverter.toDTO(updatedTag);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        tagService.delete(id);
     }
 }

@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.services.impl;
 
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.coderslab.drivertips.exceptions.TipNotFoundException;
 import pl.coderslab.drivertips.model.Tag;
@@ -32,14 +33,8 @@ public class DefaultTagService implements TagService {
     @Override
     public Tag createNewTag(Tag tag, Tip tip) {
 
-        Optional<Tip> tipFromDB = tipRepository.getOne(tip);
-
-        if (tipFromDB.isEmpty()){
-            throw new TipNotFoundException(String.format("Porada o danym id: '%s' nie została znaleziona", tip.getId()));
-        }
-
         Set<Tip> tips = new HashSet<>();
-        tips.add(tipFromDB.get());
+        tips.add(tip);
 
         Optional<Tag> tagFromDB = tagRepository.findTagByName(tag.getName());
 
@@ -56,5 +51,26 @@ public class DefaultTagService implements TagService {
         return tagFromDB.get();
     }
 
+    @Override
+    public Tag findTagById(Long id) {
+        Optional<Tag> tagFromDB = tagRepository.findTagById(id);
 
+        if (tagFromDB.isEmpty()){
+            throw new ResourceNotFoundException(String.format("Tag o danym id: '%s' nie został znaleziony", id));
+        }
+
+        return tagFromDB.get();
+    }
+
+    @Override
+    public Tag updateTag(Tag tag) {
+        return tagRepository.save(tag);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Tag tag = findTagById(id);
+
+        tagRepository.delete(tag);
+    }
 }

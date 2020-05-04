@@ -9,4 +9,10 @@ public interface TagService {
     List<Tag> getAllTags();
 
     Tag createNewTag(Tag tag, Tip tip);
+
+    Tag findTagById(Long id);
+
+    Tag updateTag(Tag tag);
+
+    void delete(Long id);
 }
