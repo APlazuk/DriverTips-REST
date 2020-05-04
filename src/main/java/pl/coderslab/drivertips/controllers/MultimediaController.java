@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +35,7 @@ class MultimediaController {
     }
 
     @GetMapping
+    @ApiOperation("Show all listed Multimedia")
     public List<MultimediaDTO> getAll() {
         List<Multimedia> allMedia = multimediaService.getAll();
 
@@ -42,6 +44,7 @@ class MultimediaController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Show Multimedia")
     public ResponseEntity<?> get(@PathVariable Long id) {
         Multimedia media = multimediaService.getMediaById(id);
 
@@ -55,6 +58,7 @@ class MultimediaController {
     }
 
     @PostMapping
+    @ApiOperation("Add new Multimedia to Database")
     public ResponseEntity<?> add(@RequestParam("media") MultipartFile media, MultimediaDTO uploadedMediaDTO, UriComponentsBuilder uriComponentsBuilder) throws IOException {
 
         try {
@@ -81,6 +85,7 @@ class MultimediaController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Delete existing Multimedia")
     public void delete(@PathVariable Long id) {
         Multimedia mediaToDelete = multimediaService.getMediaById(id);
 

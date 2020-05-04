@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/app/tip/{tipId}/training")
 class TrainingController {
 
-    /*
-    TODO
-    4.sumowanie punktów na dany trening
-    */
-
     private final TrainingService trainingService;
     private final TrainingConverter trainingConverter;
     private final TipService tipService;
@@ -37,6 +33,7 @@ class TrainingController {
     }
 
     @GetMapping("/all")
+    @ApiOperation("Show all listed Trainings")
     public List<TrainingDTO> getAll() {
         List<Training> allTrainings = trainingService.getAll();
 
@@ -44,6 +41,7 @@ class TrainingController {
     }
 
     @GetMapping("")
+    @ApiOperation("Show Training by it's Tip")
     public TrainingDTO getTraining(@PathVariable Long tipId) {
         Training training = trainingService.getTrainingByTipId(tipId);
 
@@ -51,6 +49,7 @@ class TrainingController {
     }
 
     @PostMapping("")
+    @ApiOperation("Create new Training")
     public ResponseEntity<TrainingDTO> createNew(@PathVariable Long tipId, @RequestBody TrainingDTO trainingDTO, UriComponentsBuilder uriComponentsBuilder) {
         Tip tip = tipService.findById(tipId);
 
@@ -68,6 +67,7 @@ class TrainingController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Update existing Training")
     public TrainingDTO edit(@PathVariable Long id, @RequestBody TrainingDTO trainingDTO) {
         Training trainingToUpdate = trainingService.findTrainingById(id);
 
@@ -79,6 +79,7 @@ class TrainingController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Delete existing Training")
     public void delete(@PathVariable Long id) {
         Training trainingToDelete = trainingService.findTrainingById(id);
 

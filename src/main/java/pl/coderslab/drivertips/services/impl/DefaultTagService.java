@@ -2,7 +2,6 @@ package pl.coderslab.drivertips.services.impl;
 
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.coderslab.drivertips.exceptions.TipNotFoundException;
 import pl.coderslab.drivertips.model.Tag;
 import pl.coderslab.drivertips.model.Tip;
 import pl.coderslab.drivertips.repositories.TagRepository;
@@ -18,11 +17,9 @@ import java.util.Set;
 public class DefaultTagService implements TagService {
 
     private final TagRepository tagRepository;
-    private final TipRepository tipRepository;
 
     public DefaultTagService(TagRepository tagRepository, TipRepository tipRepository) {
         this.tagRepository = tagRepository;
-        this.tipRepository = tipRepository;
     }
 
     @Override

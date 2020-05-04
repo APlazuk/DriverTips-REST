@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class TipController {
 
 
     @GetMapping("/all")
+    @ApiOperation("Show all listed Tips")
     public List<TipDTO> getAll(){
         List<Tip> allTips = tipService.getAll();
 
@@ -36,6 +38,7 @@ public class TipController {
     }
 
     @GetMapping("/latest")
+    @ApiOperation("Show latest Tips")
     public List<TipDTO> getTheNewest(@RequestParam("limit") Integer limit) {
        List<Tip> tips = tipService.newestTips(limit);
 
@@ -43,6 +46,7 @@ public class TipController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Show Tip")
     public TipDTO getById(@PathVariable Long id) {
         Tip tip = tipService.findById(id);
 
@@ -50,6 +54,7 @@ public class TipController {
     }
 
     @GetMapping("/search")
+    @ApiOperation("Search for Tip")
     public List<TipDTO> searchTipsByName(@RequestParam String name) {
         List<Tip> tips = tipService.searchTip(name);
 
@@ -57,6 +62,7 @@ public class TipController {
     }
 
     @PostMapping("")
+    @ApiOperation("Create new Tip")
     public ResponseEntity<TipDTO> createNewTip(@RequestBody @Valid TipDTO tipDTO, UriComponentsBuilder uriComponentsBuilder) {
         Tip tip = tipConverter.fromDTO(tipDTO);
 
@@ -72,6 +78,7 @@ public class TipController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Update existing Tip")
     public TipDTO edit(@PathVariable Long id, @RequestBody @Valid TipDTO tipDTO) {
         Tip tipToUpdate = tipService.findById(id);
 
@@ -83,6 +90,7 @@ public class TipController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Delete existing Tip")
     public void delete(@PathVariable Long id) {
         Tip tipToDelete = tipService.findById(id);
 

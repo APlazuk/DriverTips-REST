@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ class AnswerController {
 
 
     @GetMapping("")
+    @ApiOperation("Show all listed Answer for each Question")
     public List<AnswerDTO> getAnswersByQuestionId(@PathVariable Long questionId) {
 
         List<Answer> answers = answerService.getAnswersByQuestionId(questionId);
@@ -40,6 +42,7 @@ class AnswerController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Show Answer")
     public AnswerDTO getAnswerById(@PathVariable Long id){
         Answer answer = answerService.findAnswerById(id);
 
@@ -47,6 +50,7 @@ class AnswerController {
     }
 
     @PostMapping("")
+    @ApiOperation("Create new Answer")
     public ResponseEntity<AnswerDTO> createNew(@PathVariable Long tipId,@PathVariable Long trainingId, @PathVariable Long questionId, @RequestBody AnswerDTO answerDTO, UriComponentsBuilder uriComponentsBuilder) {
         Question question = questionService.findQuestionById(questionId);
         Answer answer = answerConverter.fromDTO(answerDTO);
@@ -63,6 +67,7 @@ class AnswerController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Update existing Answer")
     public AnswerDTO edit(@PathVariable Long id, @RequestBody AnswerDTO answerDTO){
         Answer answerToUpdate = answerService.findAnswerById(id);
 
@@ -74,6 +79,7 @@ class AnswerController {
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation("Delete existing Answer")
     public void delete(@PathVariable Long id){
         Answer answerToDelete = answerService.findAnswerById(id);
 

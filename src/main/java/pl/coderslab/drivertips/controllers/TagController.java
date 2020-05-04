@@ -1,5 +1,6 @@
 package pl.coderslab.drivertips.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ class TagController {
     }
 
     @GetMapping("/all")
+    @ApiOperation("Show all listed Tags")
     public List<TagDTO> getAllTags() {
         List<Tag> allTags = tagService.getAllTags();
 
@@ -38,6 +40,7 @@ class TagController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Show Tag")
     public TagDTO getById(@PathVariable Long id){
         Tag tagFromDB = tagService.findTagById(id);
 
@@ -45,6 +48,7 @@ class TagController {
     }
 
     @PostMapping("/{tipId}/tip")
+    @ApiOperation("Create new Tag")
     public ResponseEntity<TagDTO> createNewTag(@PathVariable Long tipId, @RequestBody TagDTO tagDTO, UriComponentsBuilder uriComponentsBuilder) {
         Tip tip = tipService.findById(tipId);
 
@@ -62,6 +66,7 @@ class TagController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Update existing Tag")
     public TagDTO edit(@PathVariable Long id, @RequestBody TagDTO tagDTO){
         Tag tagToUpdate = tagService.findTagById(id);
 
@@ -73,6 +78,7 @@ class TagController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Delete existing Tag")
     public void delete(@PathVariable Long id){
         tagService.delete(id);
     }
