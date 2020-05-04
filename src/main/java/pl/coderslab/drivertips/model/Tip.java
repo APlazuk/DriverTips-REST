@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -31,7 +32,7 @@ public class Tip  extends BaseEntity{
     private List<Multimedia> multimedia;
 
     @ManyToMany
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @PrePersist
     public void PrePersist(){
