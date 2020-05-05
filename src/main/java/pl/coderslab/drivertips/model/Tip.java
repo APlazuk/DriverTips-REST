@@ -30,7 +30,7 @@ public class Tip  extends BaseEntity{
     @JoinColumn(name = "tip_id")
     private List<Multimedia> multimedia;
 
-    @ManyToMany(mappedBy = "tips")
+    @ManyToMany
     private Set<Tag> tags;
 
     @PrePersist

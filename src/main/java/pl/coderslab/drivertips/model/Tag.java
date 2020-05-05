@@ -13,6 +13,6 @@ public class Tag extends BaseEntity{
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tags")
     private Set<Tip> tips;
 }
