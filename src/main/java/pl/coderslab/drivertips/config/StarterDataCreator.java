@@ -5,9 +5,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.drivertips.model.*;
-import pl.coderslab.drivertips.repositories.UserRepository;
+import pl.coderslab.drivertips.repositories.*;
 import pl.coderslab.drivertips.services.UserService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,11 +20,21 @@ public class StarterDataCreator implements ApplicationRunner {
 
     private final UserService userService;
     private final UserRepository userRepository;
+    private final TipRepository tipRepository;
+    private final TagRepository tagRepository;
+    private final AnswerRepository answerRepository;
+    private final QuestionRepository questionRepository;
+    private final TrainingRepository trainingRepository;
 
 
-    public StarterDataCreator(UserService userService, UserRepository userRepository) {
+    public StarterDataCreator(UserService userService, UserRepository userRepository, TipRepository tipRepository, TagRepository tagRepository, AnswerRepository answerRepository, QuestionRepository questionRepository, TrainingRepository trainingRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.tipRepository = tipRepository;
+        this.tagRepository = tagRepository;
+        this.answerRepository = answerRepository;
+        this.questionRepository = questionRepository;
+        this.trainingRepository = trainingRepository;
     }
 
     @Override
@@ -49,17 +60,12 @@ public class StarterDataCreator implements ApplicationRunner {
         answer.setText("long-distance truckers");
         answer.setCorrect(true);
 
-        Answer answer1 = new Answer();
-        answer.setText("delivery people");
-        answer.setCorrect(false);
-
         Question question = new Question();
         question.setText("Drowsy driving is a major hazard, especially for:");
         question.setPoints(5);
 
         List<Answer> answers = new ArrayList<>();
         answers.add(answer);
-        answers.add(answer1);
         question.setAnswers(answers);
 
 
@@ -74,6 +80,7 @@ public class StarterDataCreator implements ApplicationRunner {
         training.setQuestions(questions);
 
         Tip tip = new Tip();
+        tip.setDate(LocalDate.now());
         tip.setTitle("Stay Alert");
         tip.setDescription("Actively pay attention to your actions and those of the drivers around you when you are driving");
 
@@ -83,10 +90,15 @@ public class StarterDataCreator implements ApplicationRunner {
 
         tip.setTraining(training);
 
-
-        training.setTip(tip);
-        question.setTraining(training);
         answer.setQuestion(question);
+        question.setTraining(training);
+        training.setTip(tip);
+
+        answerRepository.save(answer);
+        questionRepository.save(question);
+        trainingRepository.save(training);
+        tagRepository.save(tag);
+        tipRepository.save(tip);
 
     }
 }
